@@ -1,5 +1,6 @@
 import { Board } from "./Board";
 import { Player } from "./Player";
+import { validateInput } from "./Utilities";
 
 function getRandomColumn(board: Board): number {
   let column: number;
