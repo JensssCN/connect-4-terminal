@@ -70,4 +70,19 @@ export class Game {
       }
     }
   }
+
+  private getPlayerMove(): number {
+    let column: number | null = null;
+
+    while (column === null) {
+      const input = readlineSync.question("Choose a column (1-7): ");
+      column = validateInput(input, 1, this.board.columns);
+
+      if (column === null) {
+        console.log("Invalid input. Please enter a number between 1 and 7.");
+      }
+    }
+
+    return column - 1;
+  }
 }
