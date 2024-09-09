@@ -35,4 +35,81 @@ export class Board {
   public canPlaceToken(column: number): boolean {
     return this.grid[0][column] === " ";
   }
+
+  public checkWin(symbol: string): boolean {
+    return (
+      this.checkHorizontalWin(symbol) ||
+      this.checkVerticalWin(symbol) ||
+      this.checkDiagonalWinTLBR(symbol) ||
+      this.checkDiagonalWinBLTR(symbol)
+    );
+  }
+
+  //Kollar ifall det ligger 4 av samma symbol horisontellt.
+  private checkHorizontalWin(symbol: string): boolean {
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col <= this.columns - 4; col++) {
+        if (
+          this.grid[row][col] === symbol &&
+          this.grid[row][col + 1] === symbol &&
+          this.grid[row][col + 2] === symbol &&
+          this.grid[row][col + 3] === symbol
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  //Kollar ifall det ligger 4 av samma symbol vertikalt.
+  private checkVerticalWin(symbol: string): boolean {
+    for (let col = 0; col < this.columns; col++) {
+      for (let row = 0; row <= this.rows - 4; row++) {
+        if (
+          this.grid[row][col] === symbol &&
+          this.grid[row + 1][col] === symbol &&
+          this.grid[row + 2][col] === symbol &&
+          this.grid[row + 3][col] === symbol
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  //Kollar ifall det ligger 4 av samma symbol på diagonalen (från Top Left till Bottom Right).
+  private checkDiagonalWinTLBR(symbol: string): boolean {
+    for (let row = 0; row <= this.rows - 4; row++) {
+      for (let col = 0; col <= this.columns - 4; col++) {
+        if (
+          this.grid[row][col] === symbol &&
+          this.grid[row + 1][col + 1] === symbol &&
+          this.grid[row + 2][col + 2] === symbol &&
+          this.grid[row + 3][col + 3] === symbol
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  //Kollar ifall det ligger 4 av samma symbol på diagonalen (från Bottom Left till Top Right).
+  private checkDiagonalWinBLTR(symbol: string): boolean {
+    for (let row = 3; row < this.rows; row++) {
+      for (let col = 0; col <= this.columns - 4; col++) {
+        if (
+          this.grid[row][col] === symbol &&
+          this.grid[row - 1][col + 1] === symbol &&
+          this.grid[row - 2][col + 2] === symbol &&
+          this.grid[row - 3][col + 3] === symbol
+        ) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }
