@@ -112,4 +112,9 @@ export class Board {
     }
     return false;
   }
+
+  //returnerar "true" ifall det är fullt i en column, annars "false".
+  public isFull(): boolean {
+    return this.grid.every((row) => row.every((cell) => cell !== " "));
+  }
 }
